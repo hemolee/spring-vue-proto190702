@@ -2,19 +2,7 @@
 <div id="grid">
 
       <div class="nav">    
-        <ul id="navi">
-          <li><router-link to="/"  id=myname>이혜미 님</router-link></li>
-          <li><p class=p style="padding-bottom:20px;"> </p></li>          
-          <li><router-link to="/noticeList" class=router id=r1 >공고</router-link></li>
-          <li><p class=p> </p></li>
-          <li><router-link to="/" class=router id=r2 >면접</router-link></li>
-          <li><p class=p> </p></li>
-          <li><router-link to="/" class=router id=r3>자기PR</router-link></li>
-          <li><p class=p> </p></li>
-          <li><router-link to="/" class=router id=r4>F&Q</router-link></li>
-          <li><p class=p> </p></li>
-          <li><router-link to="/" class=router id=r4>문의</router-link></li>
-        </ul>
+       <Nav></Nav> 
       </div>  
 
 <div class="notnav">
@@ -58,7 +46,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+import {store} from '../../store'
+import Nav from '@/components/common/Nav.vue'
 export default {
+  components:{
+  Nav
+},
   methods:{
     modify(){
 
@@ -72,38 +66,6 @@ export default {
 #grid{
     display:grid;
     grid-template-columns:20% 1fr;
-}
-.nav{  
-    background-color: #c9e1f5;  
-    height:1200px;
-    padding-top:20%;
-    padding-bottom:50%;
-    margin:0;  
-    font-size: 35px;
-    font-weight: 800;
-    text-align: right;
-    padding-right:15%;
-   }
-ul#navi{
-  list-style-type: none; 
-}
-#myname{
-    font-size: 30px;
-    margin:10%;
-    color:  rgb(66, 65, 65);
-    /* text-shadow: 0.5px 0 rgb(9, 43, 87); */   
-}
-.p{
-   margin:20px;
-}
-#r2,#r3,#r4,#r5{
-    color: rgb(66, 65, 65);
-    margin:10%;  
-   
-}
-#r1{
-    color: rgb(41, 132, 250);
-    margin:10%;  
 }
 
 
