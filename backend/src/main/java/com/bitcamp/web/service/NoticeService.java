@@ -44,6 +44,7 @@ public class NoticeService {
    public Notice save(Notice entity){
     return noticeRepository.save(entity);
    }   
+ 
    public Iterable<Notice> saveAll(Iterable<Notice> dtos){
     return noticeRepository.saveAll(dtos);
    }

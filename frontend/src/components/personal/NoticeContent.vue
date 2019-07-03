@@ -47,8 +47,8 @@
     
     <div class="btn">
          <router-link to="/upload"  class="btn btn-default">업로드</router-link>
-          <router-link to="/modify"  class="btn btn-default">수정</router-link>
-            <a @click="deleting"  class="btn btn-default">삭제</a>
+          <button @click="goModify(item)"  class="btn btn-default">수정</button>
+            <a @click="deleting(id)"  class="btn btn-default">삭제</a>
     </div>
 
 
@@ -69,32 +69,48 @@ export default {
  data(){
     return{
         context : 'http://localhost:9000/notices', 
-        id : null,       
-        title : null,
-        offerName: null, 
-        state : null,
-        career : null,
-        industry :null,
-        content1 : null,
-        content2 : null,
-        content3 : null,
-        content4 : null,
-        tag1 :null,
-        tag2 :null,
-        tag3 :null,            
-
+        id : '',
+        title : '',      
+        offerName: '',         
+        career : '',
+        industry :'',
+        content1 : '',      
+        content2 : '',      
+        content3 : '',      
+        content4 : '',       
+        tag1 :'',
+        tag2 :'',
+        tag3 :'',
+        item : '' 
     }
   },
-  created() {
-     item = this.$store.state.item
-     alert('스토어에서 가져온 아이템 타이틀 : '+item.title)
+  created() {     
+      this.id = store.state.items.id
+      this.title = store.state.items.title
+      this.offerName = store.state.items.offerName
+      this.career = store.state.items.career
+      this.industry = store.state.items.industry
+      this.content1 = store.state.items.content1
+      this.content2 = store.state.items.content2
+      this.content3 = store.state.items.content3
+      this.content4 = store.state.items.content4
+      this.tag1 = store.state.items.tag1
+      this.tag2 = store.state.items.tag2
+      this.tag3 = store.state.items.tag3
+      this.item = store.state.items
   },
-  methods:{     
+  methods:{   
+        goModify(item){
+          alert("수정할 공고:"+item.title)
+         store.state.items = item
+         alert("수정할 공고:"+store.state.items.title)
+        this.$router.push('/modify') 
+        } , 
         apply(){
             alert("지원 완료");
             //지원메소드
         },
-        deleting(){
+        deleting(id){
             alert("삭제 완료");
             //삭제메소드+공고목록으로
         }

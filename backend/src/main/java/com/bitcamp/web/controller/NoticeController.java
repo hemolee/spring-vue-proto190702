@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-
 import com.bitcamp.web.domain.NoticeDTO;
 
 import com.bitcamp.web.entities.Notice;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,18 +44,18 @@ public class NoticeController {
         return modelMapper;
     }
  
-/*    @DeleteMapping("/{title}")
-   public void	deleteById(@PathVariable String title){    
-    System.out.println("deleteById title :" +title);   
-    noticeService.deleteById(Long.parseLong(title));
+    @DeleteMapping("/{id}")
+   public void	deleteById(@PathVariable String id){    
+    System.out.println("deleteById title :" +id);   
+    noticeService.deleteById(Long.parseLong(id));
 
    }
-   @GetMapping("/exists{title}")
+  /*  @GetMapping("/exists{title}")
    public  boolean existsById(@PathVariable String title){
        System.out.println("existsById title :" +title);
        Long l = Long.parseLong(title);
     return noticeService.existsById(l);
-   }   */ 
+   }    */
 
    @GetMapping("")
    public Iterable<NoticeDTO> findAll(){
@@ -101,5 +101,28 @@ public class NoticeController {
        map.put("result", "SUCCESS");
       return map;
    }   
-    
+   @PutMapping("/modify/{id}")
+   public HashMap<String, String> modify(@RequestBody NoticeDTO dto,@PathVariable String id) {
+       System.out.println("수정"+dto.toString());
+       HashMap<String, String> map = new HashMap<>();
+       Notice entity = new Notice();
+       entity.setId(Long.parseLong(id));
+       entity.setTitle(dto.getTitle());
+       entity.setOfferName(dto.getOfferName());
+       entity.setContent1(dto.getContent1()); 
+       entity.setContent2(dto.getContent2()); 
+       entity.setContent3(dto.getContent3());
+       entity.setContent4(dto.getContent4());
+       entity.setState(dto.getState());
+       entity.setCareer(dto.getCareer());
+       entity.setIndustry(dto.getIndustry());
+       entity.setTag1(dto.getTag1());
+       entity.setTag2(dto.getTag2());
+       entity.setTag3(dto.getTag3());
+  
+       System.out.println("entity 저장:"+entity.toString());
+       noticeService.save(entity);
+       map.put("result", "SUCCESS");
+      return map;
+   }   
 }

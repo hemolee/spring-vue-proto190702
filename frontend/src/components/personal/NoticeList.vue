@@ -1,44 +1,41 @@
 <template>
 <div id="grid">
 
-
-      <div class="nav">    
-        <Nav></Nav>    
-      </div>   
+  <div class="nav">    
+    <Nav></Nav>    
+  </div>   
 
   <div class="notnav">
- <div class="input-group">
+    <div class="input-group">
         <div class="searching" >
         <input type="text" class="form-control" placeholder="지역, 직무 등 키워드를 입력해주세요." />
         <!-- <input type="button" class="btn-search" value="검색" /> -->
-        </div>
-       
+        </div>       
       </div> 
 
-<div class="cards">
-<ul >   
- <li  v-for="item in arr" class=cardlist  :key="item">
-  <span class="card"  >   
-   <div class="col-md-4 mb-5" id="card" @click="goContent(item)"><!-- <router-link to="/noticeContent" class="goContent"> -->
-        <div class="cardAll" >
-          <div class="card-body">
-            <p class="area">{{item.industry}} - {{item.career}}</p>
-            <br>
-            <p class="card-title" >{{item.offerName}}</p>
-            <br>
-            <p class="tags">#{{item.tag1}}   #{{item.tag2}}    #{{item.tag3}} </p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">{{item.state}} </p>            
-            </div>                        
-        </div> 
-    <!--   </router-link>  -->    
-      </div>
-    </span>
-  </li>
-   </ul>   
-   <br><br>
-</div>
+    <div class="cards">
+    <ul >   
+    <li  v-for="item in arr" class=cardlist  >
+      <span class="card"  >   
+      <div class="col-md-4 mb-5" id="card" @click="goContent(item)">
+            <div class="cardAll" >
+              <div class="card-body">
+                <p class="area">{{item.industry}} - {{item.career}}</p>
+                <br>
+                <p class="card-title" >{{item.offerName}}</p>
+                <br>
+                <p class="tags">#{{item.tag1}}   #{{item.tag2}}    #{{item.tag3}} </p>  
+                </div> 
+                <div class="card-footer">         
+                <p class="card-text">{{item.state}} </p>            
+                </div>                        
+            </div>    
+          </div>
+        </span>
+        </li>
+      </ul>   
+      <br><br>
+    </div>
        
 
 <br><br>
@@ -62,15 +59,16 @@ components:{
  data(){
     return{
         context : 'http://localhost:9000/notices', 
+        it: '',
         title : '',      
         offerName: '', 
         state : '',
         career : '',
         industry :'',
-       /*  content1 : null,      
-        content2 : null,      
-        content3 : null,      
-        content4 : null, */      
+        content1 : '',      
+        content2 : '',      
+        content3 : '',      
+        content4 : '',       
         tag1 :'',
         tag2 :'',
         tag3 :'',  
@@ -93,7 +91,8 @@ components:{
     goContent(item){      
       
       alert("title: "+item.title)
-      store.state.item = item
+      store.state.items = item
+      alert("item에 저장된:"+ store.state.items.title)
     
       // this.$router.push({name: 'noticeContent', params:{title : thetitle, id : theid}})
       this.$router.push('/noticeContent')
@@ -134,7 +133,7 @@ components:{
 }
 .cardAll{
 background-color:#e1ecf5;
-height: 290px;
+height: 270px;
 }
 .card-body{
   height: 200px;
@@ -175,8 +174,7 @@ height: 290px;
   font-weight: bold;
   text-align: right;
   font-size: 20px;
-  margin:10px;
-  padding-bottom:5px;
+  margin:20px;  
   
 }
 .goContent:hover{

@@ -5,17 +5,19 @@
   <div class="container-fluid">
 
     <ul >
-         <li><p  id=myname>이혜미 님</p></li>
+         <li><p   id=myname>이혜미 님</p></li>
           <li><p class=p style="padding-bottom:20px;"> </p></li>          
-          <li><span @click = "goNoticeList" class=router id=r1 >공고</span></li>
+          <li><router-link to= "noticeList" class=router id=r1 >공고</router-link></li>
           <li><p class=p> </p></li>
-          <li><span  class=router id=r2 >면접</span></li>
+          <li><router-link to="/" class=router id=r2 >면접</router-link></li>
           <li><p class=p> </p></li>
-          <li><span  class=router id=r3>자기PR</span></li>
+          <li><router-link to="/" class=router id=r3>자기PR</router-link></li>
           <li><p class=p> </p></li>
-          <li><span class=router id=r4>F&Q</span></li>
+          <li><router-link to="/" class=router id=r4>F&Q</router-link></li>
           <li><p class=p> </p></li>
-          <li><span class=router id=r4>문의</span></li>
+          <li><router-link to="/" class=router id=r4>문의</router-link></li>
+          <li><p class=p> </p></li>
+          <li><router-link to="upload" class=router id=r4>(업로드)</router-link></li>
     </ul>
      
   </div>
@@ -23,17 +25,7 @@
 </template>
 <script>
 export default {
-    methods:{
-      goNoticeList(){
-         axios.post(`${this.context}`)
-            .then(res=>{    
-               
-            })
-            .catch(e=>{
-
-         })
-      }
-    }
+    
 }
 </script>
 <style scoped>

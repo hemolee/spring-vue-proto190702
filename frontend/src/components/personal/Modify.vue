@@ -9,33 +9,34 @@
 
       <div class="allContent">
            <div class="title">             
-            <input type="textarea" class="title" value="제목">
+            <input type="textarea" class="title" >{{title}}
            </div>
             <div class="exeptTitle">
               <div class="area">                                 
-                <input type="textarea" class="cor_name" value="기업명">
-                <input type="textarea" class="jobkind" value="직종 및 직급">
+                <textarea  v-model="offerName" class="cor_name" >{{offerName}} </textarea>
+                <textarea  v-model="industry" class="jobkind" >{{industry}}</textarea>
+                <textarea  v-model="career" class="jobkind" >{{career}}</textarea>
                 <div >
-                  <textarea class="content" id="content1" >모집분야 및 자격요건
+                  <textarea class="content" v-model="content1" id="content1" >{{content1}}
                   </textarea>
-                  <textarea class="content" id="content2" >근무조건
+                  <textarea class="content" v-model="content2"  id="content2" >{{content2}}
                   </textarea>
-                  <textarea class="content" id="content3" >전형절차
+                  <textarea class="content" v-model="content3"  id="content3" >{{content3}}
                   </textarea>
-                  <textarea class="content" id="content4" >접수방법
+                  <textarea class="content" v-model="content4" id="content4" >{{content4}}
                   </textarea>
                 </div>
               </div>            
             <div class="tagclass">
-            <input type="textarea" class="tag"  value="태그1" >
-             <input type="textarea" class="tag"  value="태그2">
-              <input type="textarea" class="tag"  value="태그3" >  
+            <textarea class="tag"  v-model="tag1" >{{tag1}}</textarea>
+            <textarea class="tag" v-model="tag2"  >{{tag2}}</textarea>
+            <textarea class="tag" v-model="tag3" >  {{tag3}}</textarea>
             </div>
                 
         </div>
     </div>
     <div class="btn">
-         <a @click="modify"  class="btn btn-default">수정</a>
+         <a @click="modify"  class="btn btn-default">수정완료</a>
           <router-link to="/noticeList"  class="btn btn-default">취소</router-link>
            
     </div>
@@ -53,12 +54,74 @@ export default {
   components:{
   Nav
 },
-  methods:{
-    modify(){
+ data(){
+    return{
+        context : 'http://localhost:9000/notices/modify',
+        id: '',
+        title : '',
+        offerName: '',
+        content1 : '',
+        content2 : '',
+        content3 : '',
+        content4 : '',
+        state : '',
+        career :'',
+        industry :'',
+        tag1 :'',
+        tag2 :'',
+        tag3 :''
 
     }
+  },
+created() {     
+      this.id = store.state.items.id
+      this.title = store.state.items.title
+      this.offerName = store.state.items.offerName
+      this.career = store.state.items.career
+      this.industry = store.state.items.industry
+      this.content1 = store.state.items.content1
+      this.content2 = store.state.items.content2
+      this.content3 = store.state.items.content3
+      this.content4 = store.state.items.content4
+      this.tag1 = store.state.items.tag1
+      this.tag2 = store.state.items.tag2
+      this.tag3 = store.state.items.tag3
+      this.item = store.state.items
+  },
+  methods:{
+    modify(){
+      let data = {      
+                it : this.id    ,      
+                title : this.title,
+                offerName : this.offerName,
+                content1 : this.content1,
+                content2 : this.content2,
+                content3 : this.content3,
+                content4 : this.content4,               
+                state : this.state,
+                career : this.career,
+                industry : this.industry,
+                tag1 : this.tag1,
+                tag2 : this.tag2,
+                tag3 : this.tag3
+              }
+              let headers ={
+                'Content-Type': 'application/json',
+                'Athorization': 'JWT fefege..'
+              }
+              axios.put(`${this.context}/${this.id}`,
+                        JSON.stringify(data),
+                          {headers: headers})
+              .then(res=>{           
+                  alert(`modify : ${this.title}`)
+              })
+              .catch(e=>{
+                  alert('ERROR')
+              })
+      }
+    }
   }
-}
+
 </script>
 
 

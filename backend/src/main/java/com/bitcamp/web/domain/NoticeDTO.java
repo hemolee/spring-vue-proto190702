@@ -9,8 +9,8 @@ import lombok.Data;
 @Component
 @Lazy
 public class NoticeDTO {
-        
-   private String  id, title,
+   private Long id;     
+   private String title,
          offerName,
          content1,
          content2,
