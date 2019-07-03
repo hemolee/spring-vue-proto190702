@@ -29,10 +29,10 @@ public class Notice implements Serializable{
 
     @Id
     @GeneratedValue(strategy =GenerationType.AUTO)
-    private Long wtdSeqNo;
+    private Long id;
         
     @Column(name="wtd_title") private String title;
-    @Column(name="offer_Name") private String offerName;
+    @Column(name="offer_name") private String offerName;
     @Column(name="wtd_content1") private String content1;
     @Column(name="wtd_content2") private String content2;
     @Column(name="wtd_content3") private String content3;
@@ -40,22 +40,21 @@ public class Notice implements Serializable{
     @Column(name="wtd_state")private String state;
     @Column(name="wtd_career")private String career ;
     @Column(name="wtd_industry")private String industry;
-    @Column(name="wtd_start_date")private String start_date ;
-    @Column(name="wtd_last_date")private String last_dates ;    
+    
     @Column(name="wtd_tag1")private String tag1;
     @Column(name="wtd_tag2")private String tag2 ;
     @Column(name="wtd_tag3")private String tag3;
     
     @Override
     public String toString(){
-        return String.format("고객정보 No: %d|n" + "ID: %s", wtdSeqNo, title,offerName,
-        content1,content2,content3,content4,state,career,industry,start_date,last_dates,
+        return String.format("고객정보 No: %d|n" + "ID: %s", id, title,offerName,
+        content1,content2,content3,content4,state,career,industry,
         tag1,tag2,tag3);
     }
 
     @Builder
     private Notice(String title, String offerName, String content1, String content2,String content3,
-    String content4,String state,String career,String industry, String start_date, String last_dates,
+    String content4,String state,String career,String industry,
     String tag1,String tag2,String tag3){       
         this.title = title;
         this.offerName = offerName;        
@@ -66,9 +65,6 @@ public class Notice implements Serializable{
         this.state = state;
         this.career = career;
         this.industry = industry;
-        this.start_date = start_date;
-        this.last_dates = last_dates;
-        this.start_date = start_date;     
         this.tag1 = tag1;
         this.tag2 = tag2;
         this.tag3 = tag3;

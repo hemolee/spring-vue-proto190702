@@ -44,7 +44,7 @@ public class NoticeController {
         return modelMapper;
     }
  
-   @DeleteMapping("/{title}")
+/*    @DeleteMapping("/{title}")
    public void	deleteById(@PathVariable String title){    
     System.out.println("deleteById title :" +title);   
     noticeService.deleteById(Long.parseLong(title));
@@ -55,7 +55,7 @@ public class NoticeController {
        System.out.println("existsById title :" +title);
        Long l = Long.parseLong(title);
     return noticeService.existsById(l);
-   }   
+   }   */ 
 
    @GetMapping("")
    public Iterable<NoticeDTO> findAll(){
@@ -65,35 +65,33 @@ public class NoticeController {
        for(Notice s: entities){
            NoticeDTO noti = modelMapper.map(s, NoticeDTO.class);
             list.add(noti);
-         }
+         }        
     return list;
    }
- 
-   @GetMapping("/{title}")
-   public NoticeDTO findById(@PathVariable String title) {
+   @GetMapping("/noticeContent/{title}")
+   public NoticeDTO findByTitle(@PathVariable String title) {
     System.out.println("findbyid: "+title);   
-    Notice entity = noticeService
-                        .findById(Long.parseLong(title))
-                        .orElseThrow(EntityNotFoundException::new);
+    Notice entity = repo.findContentByTitle(title);
+                        // .orElseThrow(EntityNotFoundException::new);
     System.out.println(">>>>"+entity.toString());
     NoticeDTO n = modelMapper.map(entity, NoticeDTO.class);
     System.out.println("조회결과: "+n.toString());
     return n;
    }
-   @PostMapping("")
+   @PostMapping("/upload")
    public HashMap<String, String> save(@RequestBody NoticeDTO dto) {
        System.out.println("업로드"+dto.toString());
        HashMap<String, String> map = new HashMap<>();
        Notice entity = new Notice();
        entity.setTitle(dto.getTitle());
+       entity.setOfferName(dto.getOfferName());
        entity.setContent1(dto.getContent1()); 
        entity.setContent2(dto.getContent2()); 
        entity.setContent3(dto.getContent3());
+       entity.setContent4(dto.getContent4());
        entity.setState(dto.getState());
        entity.setCareer(dto.getCareer());
        entity.setIndustry(dto.getIndustry());
-       entity.setStart_date(dto.getStart_date());
-       entity.setLast_dates(dto.getLast_dates());      
        entity.setTag1(dto.getTag1());
        entity.setTag2(dto.getTag2());
        entity.setTag3(dto.getTag3());

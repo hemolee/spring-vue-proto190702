@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS notices;
 CREATE TABLE notices (
-wtd_seq_no INT AUTO_INCREMENT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 wtd_title VARCHAR(40) UNIQUE NOT NULL,
 offer_name VARCHAR(40)  ,
 wtd_content1 VARCHAR(200) ,
@@ -10,8 +10,6 @@ wtd_content4 VARCHAR(200),
 wtd_state VARCHAR(20),
 wtd_career VARCHAR(20) ,
 wtd_industry VARCHAR(20) ,
-wtd_start_date VARCHAR(20) ,
-wtd_last_date VARCHAR(20) ,
 wtd_tag1 VARCHAR(20) ,
 wtd_tag2 VARCHAR(20), 
 wtd_tag3 VARCHAR(20)

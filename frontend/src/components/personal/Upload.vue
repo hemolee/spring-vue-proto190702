@@ -5,7 +5,7 @@
         <ul id="navi">
           <li><router-link to="/"  id=myname>이혜미 님</router-link></li>
           <li><p class=p style="padding-bottom:20px;"> </p></li>          
-          <li><router-link to="/noticeList" class=router id=r1 >공고</router-link></li>
+          <li><span @click = "noticeList" class=router id=r1 >공고</span></li>
           <li><p class=p> </p></li>
           <li><router-link to="/" class=router id=r2 >면접</router-link></li>
           <li><p class=p> </p></li>
@@ -21,7 +21,7 @@
 
       <div class="allContent">
            <div class="title">             
-            <input type="textarea" class="title" value="제목">
+            <input type="textarea" class="title" v-model="title" value="제목">
            </div>
             <div class="exeptTitle">
               <div class="area">                                 
@@ -63,7 +63,7 @@
 export default {
    data(){
     return{
-        context : 'http://localhost:9000/notices',
+        context : 'http://localhost:9000/notices/upload',
         title : '제목',
         offerName: '기업명',
         content1 : '모집분야 ',
@@ -73,9 +73,6 @@ export default {
         state : '진행중',
         career :'인턴/신입/경력',
         industry :'직종',
-        start_date :'190702',
-        last_dates :'190709',
-        sysdate :'0000',
         tag1 :'태그1',
         tag2 :'태그2',
         tag3 :'태그3'
@@ -86,19 +83,17 @@ export default {
     upload(){
       let data = {                
                 title : this.title,
+                offerName : this.offerName,
                 content1 : this.content1,
-                content2 :this.content2,
-                content3:this.content3,
-                content4 : this.content4,
+                content2 : this.content2,
+                content3 : this.content3,
+                content4 : this.content4,               
                 state : this.state,
-                career :this.career,
-                industry :this.industry,
-                start_date :this.start_date,
-                last_dates :this.last_dates,
-                sysdate :this.sysdate,
-                tag1 :this.tag1,
-                tag2 :this.tag2,
-                tag3 :this.tag3
+                career : this.career,
+                industry : this.industry,
+                tag1 : this.tag1,
+                tag2 : this.tag2,
+                tag3 : this.tag3
               }
               let headers ={
                 'Content-Type': 'application/json',
@@ -108,7 +103,7 @@ export default {
                         JSON.stringify(data),
                           {headers: headers})
               .then(res=>{           
-                  alert(`upload : ${res.data.title}`)
+                  alert(`upload : ${this.title}`)
               })
               .catch(e=>{
                   alert('ERROR')
@@ -169,7 +164,7 @@ ul#navi{
     
 }
 .title{
-     border: solid  #c9e1f5 1px;
+    border: solid  #c9e1f5 1px;
     margin-bottom:10px;
     padding-top:10px;
     font-size:20px;
@@ -183,25 +178,25 @@ ul#navi{
     
 }
 .content{
-     margin-bottom:10px;
-     font-size:15px;
-     font-weight: bold;
-     width:100%;
-     height:130px;;
-     border:none;
+    margin-bottom:10px;
+    font-size:15px;
+    font-weight: bold;
+    width:100%;
+    height:130px;;
+    border:none;
 }
 
 .tag{    
-     color:rgb(90, 88, 88);
-     font-weight: bold;     
-     width:15%;
-     border:none;
-     font-size:15px;
+    color:rgb(90, 88, 88);
+    font-weight: bold;     
+    width:15%;
+    border:none;
+    font-size:15px;
 }
 .offerName, .industry, .career{
-      border:none;
-      width:100%;
-      font-size:15px;
+    border:none;
+    width:100%;
+    font-size:15px;
 }
 
 

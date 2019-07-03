@@ -38,8 +38,8 @@ public class NoticeService {
    public Iterable<Notice> findAllById(Iterable<Long> ids){
     return noticeRepository.findAllById(ids);
    }   
-   public Optional<Notice> findById(Long id){
-    return noticeRepository.findById(id);
+   public Optional<Notice> findById(String id){
+    return noticeRepository.findById(Long.parseLong(id));
    }
    public Notice save(Notice entity){
     return noticeRepository.save(entity);

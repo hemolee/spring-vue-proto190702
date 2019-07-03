@@ -21,43 +21,35 @@
 
       <div class="allContent">
           <div class="title">
-             <p>하나투어 - 호텔 사업 부분 경력직 채용(7/1 19시 접수!)</p>
+             <p>  {{title}} </p>
             </div>
             <div class="exeptTitle">
             <div class="area">
-            <p class="cor_name">(주)하나투어</p>             
-            <p class="jobkind">호텔 사업 부분 경력직 채용</p>
+            <p class="cor_name">{{offerName}}</p>             
+            <p class="jobkind">{{industry}} 부문 {{career}}직 채용</p>
             </div> 
             <br>
             <div class="content">
                <div class="intro">
-                      하나투어는1993년 설립된 국내 최대 여행 종합 기업으로, 18개 국내계열사와 전세계 30여개 글로벌 네트워크를
-                    통해 전세계 여해산업을 이끌고 있습니다.글로벌 no.1 문화관광 유통그룹 비젼달성을 위한 역량있는 경력자를 모집하오니 많은 관심바랍니다.</div>
+               </div>
             </div>
             <div class="qualification">
                 <h3>모집분야 및 자격요건</h3>
-                모집분야: 체인호텔사업팀(0명)<br>
-                담당업무: 체인호텔 예약 시스템 기획 및 운영 <br>
-                자격요건: 호텔시스템 관련 경력 5년 이상 보유<br>
-                우대사항: 외국어 가능자
+                 {{content1}} 
                 <br><br>
                 <h3>근무조건</h3>
-                근무형태: 정규직<br>
-                근무지: 서울 종로구<br>
-                근무요일: 주5일<br>
-                근무시간: 09:00 ~ 18:00<br>
-                급여: 회사내규에 따름(면접 후 결정)
+                {{content2}}
                 <br><br>
                 <h3>전형절차</h3>
-                선착순 지원마감 > 블라인드 스트리밍 면접 > 최종합격
+               {{content3}}
                 <br><br>
                 <h3>접수방법</h3>
-                2019.07.01(월) 19시 지원 접수 시작. 선착순 마감.
+               {{content4}}
                 <br><br>
                 
             </div>
             <div class="tag">
-               <p>#여행사 #성실한 #경력</p>
+               <p>#{{tag1}} #{{tag2}} #{{tag3}}</p>
                 </div>
                 <div class="apply">
                     <input type=button @click="apply"  class="btn-apply" value="지원하기">
@@ -78,8 +70,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+import {store} from '../../store'
 export default {
-    methods:{
+ data(){
+    return{
+        context : 'http://localhost:9000/notices', 
+        id : null,       
+        title : null,
+        offerName: null, 
+        state : null,
+        career : null,
+        industry :null,
+        content1 : null,
+        content2 : null,
+        content3 : null,
+        content4 : null,
+        tag1 :null,
+        tag2 :null,
+        tag3 :null,            
+
+    }
+  },
+  created() {
+     item = this.$store.state.item
+     alert('스토어에서 가져온 아이템 타이틀 : '+item.title)
+  },
+  methods:{     
         apply(){
             alert("지원 완료");
             //지원메소드

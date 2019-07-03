@@ -10,7 +10,7 @@ import lombok.Data;
 @Lazy
 public class NoticeDTO {
         
-   private String  title,
+   private String  id, title,
          offerName,
          content1,
          content2,
@@ -19,8 +19,6 @@ public class NoticeDTO {
          state,
          career,
          industry,
-         start_date,
-         last_dates,       
          tag1,
          tag2,
          tag3;

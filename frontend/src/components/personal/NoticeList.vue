@@ -2,7 +2,7 @@
 <div id="grid">
 
 
-      <div class="nav">    
+    <!--  <div class="nav">    
         <ul id="navi">
           <li><router-link to="/"  id=myname>이혜미 님</router-link></li>
           <li><p class=p style="padding-bottom:20px;"> </p></li>          
@@ -16,11 +16,10 @@
           <li><p class=p> </p></li>
           <li><router-link to="/" class=router id=r4>문의</router-link></li>
         </ul>
-      </div>  
+      </div>   -->
 
   <div class="notnav">
-
-      <div class="input-group">
+ <div class="input-group">
         <div class="searching" >
         <input type="text" class="form-control" placeholder="지역, 직무 등 키워드를 입력해주세요." />
         <!-- <input type="button" class="btn-search" value="검색" /> -->
@@ -28,107 +27,32 @@
        
       </div> 
 
- <!-- 첫번째 줄 -->
-  <div class="row">
-    <span class="row1">
-       <!-- 첫번째 공고 -->
-      <div class="col-md-4 mb-5" id="card" ><router-link to="/noticeContent" class="noticeConR">
-        <div class="cardAll">
+<div class="cards">
+<ul >   
+ <li  v-for="item in arr" class=cardlist  :key="item">
+  <span class="card"  >   
+   <div class="col-md-4 mb-5" id="card" @click="goContent(item)"><!-- <router-link to="/noticeContent" class="goContent"> -->
+        <div class="cardAll" >
           <div class="card-body">
-            <p class="area">마케팅 - 신입</p>
+            <p class="area">{{item.industry}} - {{item.career}}</p>
             <br>
-            <p class="card-title">티몬</p>
+            <p class="card-title" >{{item.offerName}}</p>
             <br>
-            <p class="tags">#서울  #참신한  #성실한</p>  
+            <p class="tags">#{{item.tag1}}   #{{item.tag2}}    #{{item.tag3}} </p>  
             </div> 
             <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
-        </router-link>
-      </div>
-      <!-- 두번째 공고 -->
-           <div class="col-md-4 mb-5" id="card">
-        <div class="cardAll">
-          <div class="card-body">
-            <p class="area">마케팅 - 신입</p>
-            <br>
-            <p class="card-title">로엔·카카오뮤직</p>
-            <br>
-            <p class="tags">#서울  #참신한  #신입</p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
-      </div>
-      <!-- 세 번째 공고-->
-           <div class="col-md-4 mb-5" id="card">
-        <div class="cardAll">
-          <div class="card-body">
-            <p class="area">재무·회계 - 경력</p>
-            <br>
-            <p class="card-title">KB캐피탈 </p>
-            <br>
-            <p class="tags">#서울   #꼼꼼한   #경력</p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
-      </div>
-      </span>
-      
-      <!-- 두번째 줄 -->
-      <span class="row2">
-
-      <!-- 네 번째 공고 -->
-       <div class="col-md-4 mb-5" id="card">
-        <div class="cardAll">
-          <div class="card-body">
-            <p class="area">웹프로그래머 - 신입</p>
-            <br>
-            <p class="card-title">11번가</p>
-            <br>
-            <p class="tags">#서울   #꼼꼼한   #신입</p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
-      </div>
-       <!-- 다섯 번째 공고 -->
-           <div class="col-md-4 mb-5" id="card">
-        <div class="cardAll">
-          <div class="card-body">
-            <p class="area">호텔사업 - 경력</p>
-            <br>
-            <p class="card-title">하나투어</p>
-            <br>
-            <p class="tags">#서울   #긍정적인   #성실한</p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
-      </div>
-      <!-- 여섯 번째 공고 -->
-        <div class="col-md-4 mb-5" id="card">
-        <div class="cardAll">
-          <div class="card-body">
-            <p class="area">마케팅 - 인턴</p>
-            <br>
-            <p class="card-title">카카오·멜론</p>
-            <br>
-            <p class="tags">#서울   #열정적인   #인턴</p>  
-            </div> 
-            <div class="card-footer">         
-            <p class="card-text">접수중</p>
-            </div>              
-        </div>
+            <p class="card-text">{{item.state}} </p>            
+            </div>                        
+        </div> 
+    <!--   </router-link>  -->    
       </div>
     </span>
+  </li>
+   </ul>   
+   <br><br>
 </div>
+       
+
 <br><br>
       <div class="page">
         <h3>페이징 넣어야함</h3>
@@ -140,16 +64,58 @@
 
 <script>
 import axios from 'axios'
-export default {
+import {store} from '../../store'
+import Nav from '@/components/common/Nav.vue'
 
+export default {
+ data(){
+    return{
+        context : 'http://localhost:9000/notices', 
+        title : '',      
+        offerName: '', 
+        state : '',
+        career : '',
+        industry :'',
+       /*  content1 : null,      
+        content2 : null,      
+        content3 : null,      
+        content4 : null, */      
+        tag1 :'',
+        tag2 :'',
+        tag3 :'',  
+        arr : []     
+
+    }
+  },
+  created() {
+   axios.get(`${this.context}`)
+   .then(res=>{    
+      this.arr = res.data      
+   })
+   .catch(e=>{
+
+   })
+
+
+  },
+  methods:{
+    goContent(item){      
+      
+      alert("title: "+item.title)
+      store.state.item = item
+    
+      // this.$router.push({name: 'noticeContent', params:{title : thetitle, id : theid}})
+      this.$router.push('/noticeContent')
+    }
+  }
 }
 </script>
 
 <style scoped>
-#grid{
+/* #grid{
   display:grid;
     grid-template-columns:20% 1fr;
-}
+} */
 .nav{  
   background-color: #c9e1f5;  
   height:1200px;
@@ -206,14 +172,13 @@ ul#navi{
 
 #card{
   width:30%;
-  height: 250px;
-  padding:3%;
-  margin-bottom: 2%;
+  padding:2%;
+  margin:auto;
   
 }
 .cardAll{
 background-color:#e1ecf5;
-
+height: 290px;
 }
 .card-body{
   height: 200px;
@@ -228,21 +193,9 @@ background-color:#e1ecf5;
  width:700px;
  
 }
-.row1{
-  margin-bottom:100px;
-  }
-.row2{
-  margin-top:100px;
-}
-.page{
+.page{  
   margin-left: 40%;
 }
-
-.row{
-  padding-left: 5%;
-  
-}
-
 .area{
   margin:5px;
   color:rgb(70, 68, 68);
@@ -270,8 +223,14 @@ background-color:#e1ecf5;
   padding-bottom:5px;
   
 }
-.noticeConR:hover{
+.goContent:hover{
   text-decoration: none;
+}
+.cards{
+  margin-bottom:40%;
+}
+.cardlist{
+  list-style: none;
 }
    
 </style>
