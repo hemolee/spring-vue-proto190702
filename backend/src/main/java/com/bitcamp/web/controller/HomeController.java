@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  @Controller
  public class HomeController{
     @Autowired Printer p;
-     @Autowired NoticeService noticeService; 
+   
 
      @RequestMapping("/") 
      public String index() {

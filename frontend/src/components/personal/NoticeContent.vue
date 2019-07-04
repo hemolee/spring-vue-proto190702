@@ -46,9 +46,9 @@
     </div>
     
     <div class="btn">
-         <router-link to="/upload"  class="btn btn-default">업로드</router-link>
-          <button @click="goModify(item)"  class="btn btn-default">수정</button>
-            <a @click="deleting(id)"  class="btn btn-default">삭제</a>
+        <router-link to="/upload"  class="btn btn-default">업로드</router-link>
+        <button @click="goModify(item)"  class="btn btn-default">수정</button>
+        <button @click="deleting(id)"  class="btn btn-default">삭제</button>
     </div>
 
 
@@ -101,20 +101,27 @@ export default {
   },
   methods:{   
         goModify(item){
-          alert("수정할 공고:"+item.title)
-         store.state.items = item
-         alert("수정할 공고:"+store.state.items.title)
-        this.$router.push('/modify') 
+            alert("수정할 공고:"+item.title)
+            store.state.items = item
+            // alert("수정할 공고:"+store.state.items.title)
+            this.$router.push('/modify') 
         } , 
         apply(){
             alert("지원 완료");
             //지원메소드
         },
-        deleting(id){
-            alert("삭제 완료");
-            //삭제메소드+공고목록으로
+        deleting(id){            
+            axios.delete(`${this.context}/${this.id}`)
+         .then(res=>{           
+            alert(`삭제 완료 : ${this.title}`)
+            this.$router.push('/noticeList') 
+         })
+         .catch(e=>{
+            alert('ERROR')
+         })
+        
         }
-    }
+     }
 }
 </script>
 

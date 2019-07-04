@@ -92,7 +92,7 @@ components:{
       
       alert("title: "+item.title)
       store.state.items = item
-      alert("item에 저장된:"+ store.state.items.title)
+      // alert("item에 저장된:"+ store.state.items.title)
     
       // this.$router.push({name: 'noticeContent', params:{title : thetitle, id : theid}})
       this.$router.push('/noticeContent')
@@ -140,7 +140,7 @@ height: 270px;
   padding:10px;
 }
 .input-group{
-  padding-left:6.5%;
+  padding-left:4.5%;
   padding-top:50px;
   margin-bottom:20px;
 }

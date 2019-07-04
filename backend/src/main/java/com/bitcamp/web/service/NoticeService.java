@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service 
 public class NoticeService {
-   @Autowired NoticeRepository noticeRepository;
+ /*  @Autowired NoticeRepository noticeRepository;
 
    public long	count(){
     return noticeRepository.count();
@@ -47,5 +47,5 @@ public class NoticeService {
  
    public Iterable<Notice> saveAll(Iterable<Notice> dtos){
     return noticeRepository.saveAll(dtos);
-   }
+   } */
 }

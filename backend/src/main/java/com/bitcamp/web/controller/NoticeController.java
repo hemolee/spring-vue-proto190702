@@ -12,7 +12,7 @@ import com.bitcamp.web.domain.NoticeDTO;
 import com.bitcamp.web.entities.Notice;
 import com.bitcamp.web.repositories.NoticeRepository;
 
-import com.bitcamp.web.service.NoticeService;
+
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600) // 걸 메소드에만 걸어줘도됨..
 @RestController
 @RequestMapping("/notices")
-public class NoticeController {
-    @Autowired NoticeService noticeService;
+public class NoticeController {    
     @Autowired NoticeDTO notice;    
     @Autowired ModelMapper modelMapper;
     @Autowired NoticeRepository repo;
@@ -47,7 +46,7 @@ public class NoticeController {
     @DeleteMapping("/{id}")
    public void	deleteById(@PathVariable String id){    
     System.out.println("deleteById title :" +id);   
-    noticeService.deleteById(Long.parseLong(id));
+    repo.deleteById(Long.parseLong(id));
 
    }
   /*  @GetMapping("/exists{title}")
@@ -59,7 +58,7 @@ public class NoticeController {
 
    @GetMapping("")
    public Iterable<NoticeDTO> findAll(){
-       Iterable<Notice> entities = noticeService.findAll();
+       Iterable<Notice> entities = repo.findAll();
        System.out.println("findall 진입");
        List<NoticeDTO> list = new ArrayList<>();
        for(Notice s: entities){
@@ -68,15 +67,16 @@ public class NoticeController {
          }        
     return list;
    }
-   @GetMapping("/noticeContent/{title}")
-   public NoticeDTO findByTitle(@PathVariable String title) {
-    System.out.println("findbyid: "+title);   
-    Notice entity = repo.findContentByTitle(title);
-                        // .orElseThrow(EntityNotFoundException::new);
-    System.out.println(">>>>"+entity.toString());
+   @GetMapping("/noticeContent/{id}")
+   public NoticeDTO findById(@PathVariable String id) {
+    /* 
+    Notice entity = repo.findContentById(id).get(); 
     NoticeDTO n = modelMapper.map(entity, NoticeDTO.class);
-    System.out.println("조회결과: "+n.toString());
-    return n;
+    System.out.println("조회결과: "+n.toString()); */
+
+    return modelMapper.map(repo.findById(Long.parseLong(id))
+            .orElseThrow(EntityNotFoundException::new),
+            NoticeDTO.class);
    }
    @PostMapping("/upload")
    public HashMap<String, String> save(@RequestBody NoticeDTO dto) {
@@ -97,7 +97,7 @@ public class NoticeController {
        entity.setTag3(dto.getTag3());
   
        System.out.println("entity 저장:"+entity.toString());
-       noticeService.save(entity);
+       repo.save(entity);
        map.put("result", "SUCCESS");
       return map;
    }   
@@ -105,7 +105,7 @@ public class NoticeController {
    public HashMap<String, String> modify(@RequestBody NoticeDTO dto,@PathVariable String id) {
        System.out.println("수정"+dto.toString());
        HashMap<String, String> map = new HashMap<>();
-       Notice entity = new Notice();
+       Notice entity = repo.findById(Long.parseLong(id)).get();
        entity.setId(Long.parseLong(id));
        entity.setTitle(dto.getTitle());
        entity.setOfferName(dto.getOfferName());
@@ -121,7 +121,7 @@ public class NoticeController {
        entity.setTag3(dto.getTag3());
   
        System.out.println("entity 저장:"+entity.toString());
-       noticeService.save(entity);
+       repo.save(entity);
        map.put("result", "SUCCESS");
       return map;
    }   

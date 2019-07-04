@@ -31,8 +31,9 @@
             <textarea class="tag"  v-model="tag1" >{{tag1}}</textarea>
             <textarea class="tag" v-model="tag2"  >{{tag2}}</textarea>
             <textarea class="tag" v-model="tag3" >  {{tag3}}</textarea>
+            <textarea class="tag" v-model="state" >  {{state}}</textarea>
             </div>
-                
+           
         </div>
     </div>
     <div class="btn">
@@ -86,6 +87,7 @@ created() {
       this.tag1 = store.state.items.tag1
       this.tag2 = store.state.items.tag2
       this.tag3 = store.state.items.tag3
+      this.state = store.state.items.state
       this.item = store.state.items
   },
   methods:{
@@ -113,11 +115,14 @@ created() {
                         JSON.stringify(data),
                           {headers: headers})
               .then(res=>{           
-                  alert(`modify : ${this.title}`)
+                  alert(`수정완료 : ${this.title}`)
+                  
               })
               .catch(e=>{
                   alert('ERROR')
+                  this.$router.link(-1);
               })
+              this.$router.push('/noticeList') 
       }
     }
   }

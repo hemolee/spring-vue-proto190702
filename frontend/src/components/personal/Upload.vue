@@ -98,11 +98,15 @@ export default {
                         JSON.stringify(data),
                           {headers: headers})
               .then(res=>{           
-                  alert(`upload : ${this.title}`)
+                  alert(`upload 완료: ${this.title}`)
+                  this.$router.push('/noticeList') 
+                  
               })
               .catch(e=>{
                   alert('ERROR')
+                  
               })
+              
     }
   },
   noticeList(){
